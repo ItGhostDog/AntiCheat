@@ -1,0 +1,103 @@
+On left click:
+	add 1 to {clicks.%player%}
+	if {clicks.%player%} > 5:
+		loop all players:
+			if loop-player has permission "anticheat.see":
+				send "&6[&cGhost&6] &c%player% May be using AutoClicker/Killaura &6(&c%{clicks.%player%}% &cCPS&6)&c!" to loop-player
+every 1 second:
+	loop all players:
+		delete {clicks.%loop-player%}
+on disconnect:
+	delete {clicks.%player%}
+on join:
+	while player is online:
+		if block below player is not air:
+			set {location.%player%} to location of player
+		wait 1 seconds
+		player is not flying
+		player's gamemode is not creative
+		set {z.%player%} to the z location of player
+		set {y.%player%} to the y location of player
+		set {x.%player%} to the x location of player
+		wait 1 seconds
+		set {z2.%player%} to the z location of player
+		set {y2.%player%} to the y location of player
+		set {x.%player%} to the x location of player
+		wait 1 ticks
+		if block below player is air:
+			chestplate of player is not a elytra
+				if {y2.%player%} > {y.%player%}:
+					if difference between {y.%player%} and {y2.%player%} is greater than 3:
+						if player doesn't have jump boost:
+							teleport player to {location.%player%}
+							loop all players:
+								if loop-player has permission "anticheat.see":
+									send "&6[&cGhost&6] &c%player% May be Fly Hacking!" to loop-player
+				if {y2.%player%} = {y.%player%}:
+					set {_block1} to the block left of player
+					set {_block1} to the block below {_block1}
+					set {_block2} to the block right of player
+					set {_block2} to the block below {_block2}
+					set {_block3} to the block in front of player
+					set {_block3} to the block below {_block3}
+					set {_block4} to the block behind player
+					set {_block4} to the block below {_block1}
+					if {_block1} is air:
+						if {_block2} is air:
+							if {_block3} is air:
+								if {_block4} is air:
+									if {z2.%player%} != {z.%player%}:
+										if block below player is air:
+											teleport player to {location.%player%}
+											loop all players:
+												if loop-player has permission "anticheat.see":
+													send "&6[&cGhost&6] &c%player% May be Fly Hacking!" to loop-player
+									if {x2.%player%} != {x.%player%}:
+										if block below player is air:
+											teleport player to {location.%player%}
+											loop all players:
+												if loop-player has permission "anticheat.see":
+													send "&6[&cGhost&6] &c%player% May be Fly Hacking!" to loop-player
+									if {x2.%player%} = {x.%player%}:
+										if block below player is air:
+											teleport player to {location.%player%}
+											loop all players:
+												if loop-player has permission "anticheat.see":
+													send "&6[&cGhost&6] &c%player% May be Fly Hacking!" to loop-player
+									if {z2.%player%} = {z.%player%}:
+										if block below player is air:
+											teleport player to {location.%player%}
+											loop all players:
+												if loop-player has permission "anticheat.see":
+													send "&6[&cGhost&6] &c%player% May be Fly Hacking!" to loop-player
+		if difference between {z.%player%} and {z2.%player%} is greater than 8:
+			if player doesn't have swiftness:
+				loop all players:
+					if loop-player has permission "anticheat.see":
+						send "&6[&cGhost&6] &c%player% May be Speed Hacking!" to loop-player
+		if difference between {x.%player%} and {x2.%player%} is greater than 8:
+			if player doesn't have swiftness:
+				loop all players:
+					if loop-player has permission "anticheat.see":
+						send "&6[&cGhost&6] &c%player% May be Speed Hacking!" to loop-player
+on damage:
+	victim is player
+	set {_location} to location of victim
+	set {_distance} to distance between attacker and victim
+	if {_distance} > 5:
+		attacker is player
+		if damage cause is not a projectile:
+			loop all players:
+				if loop-player has permission "anticheat.see":
+					send "&6[&cGhost&6] &c%attacker% May be using Reach (%{_distance}% blocks)!" to loop-player
+	wait 10 ticks
+	if location of victim is {_location}:
+		victim is player
+		block above victim is air
+		damage wasn't caused by fall, potion, lava, burning, fire, poison or wither
+		victim is not burning
+		victim doesn't have poison
+		victim doesn't have wither
+		loop all players:
+			if loop-player has permission "anticheat.see":
+				send "&6[&cGhost&6] &c%victim% May have Anti-KB!" to loop-player
